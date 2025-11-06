@@ -29,7 +29,14 @@ export async function removeFromCart(itemId) {
   const res = await fetch(`${API_BASE}/cart/${itemId}`, {
     method: 'DELETE',
   });
-  if (!res.ok) throw new Error('Failed to remove item');
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: 'Failed to remove item' }));
+    throw new Error(err.error || 'Failed to remove item');
+  }
+  // 204 No Content has no body, so don't try to parse JSON
+  if (res.status === 204) {
+    return;
+  }
   return res.json();
 }
 
