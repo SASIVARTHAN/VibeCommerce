@@ -1,0 +1,147 @@
+{
+  "products": {
+    "description": "GET /api/products - Returns all products",
+    "response": [
+      {
+        "id": "p1",
+        "name": "Vibe T-Shirt",
+        "price": 1999,
+        "image": "https://picsum.photos/seed/vibe1/400/300"
+      },
+      {
+        "id": "p2",
+        "name": "Vibe Hoodie",
+        "price": 4999,
+        "image": "https://picsum.photos/seed/vibe2/400/300"
+      },
+      {
+        "id": "p3",
+        "name": "Vibe Cap",
+        "price": 1499,
+        "image": "https://picsum.photos/seed/vibe3/400/300"
+      },
+      {
+        "id": "p4",
+        "name": "Vibe Socks",
+        "price": 999,
+        "image": "https://picsum.photos/seed/vibe4/400/300"
+      },
+      {
+        "id": "p5",
+        "name": "Vibe Mug",
+        "price": 1299,
+        "image": "https://picsum.photos/seed/vibe5/400/300"
+      },
+      {
+        "id": "p6",
+        "name": "Vibe Tote",
+        "price": 2499,
+        "image": "https://picsum.photos/seed/vibe6/400/300"
+      }
+    ]
+  },
+  "addToCart": {
+    "description": "POST /api/cart - Add item to cart",
+    "request": {
+      "productId": "p1",
+      "qty": 2
+    },
+    "response": {
+      "id": "ci_1762438741524",
+      "productId": "p1",
+      "qty": 2
+    }
+  },
+  "getCart": {
+    "description": "GET /api/cart - Get cart with items and total",
+    "response": {
+      "items": [
+        {
+          "id": "ci_1762438741524",
+          "productId": "p1",
+          "qty": 2,
+          "name": "Vibe T-Shirt",
+          "price": 1999,
+          "image": "https://picsum.photos/seed/vibe1/400/300",
+          "lineTotal": 3998
+        },
+        {
+          "id": "ci_1762438741525",
+          "productId": "p3",
+          "qty": 1,
+          "name": "Vibe Cap",
+          "price": 1499,
+          "image": "https://picsum.photos/seed/vibe3/400/300",
+          "lineTotal": 1499
+        }
+      ],
+      "total": 5497
+    }
+  },
+  "updateCartItem": {
+    "description": "PATCH /api/cart/:id - Update item quantity",
+    "request": {
+      "qty": 3
+    },
+    "response": {
+      "id": "ci_1762438741524",
+      "qty": 3
+    }
+  },
+  "removeCartItem": {
+    "description": "DELETE /api/cart/:id - Remove item from cart",
+    "response": "204 No Content"
+  },
+  "checkout": {
+    "description": "POST /api/checkout - Process checkout",
+    "request": {
+      "name": "John Doe",
+      "email": "john.doe@example.com"
+    },
+    "response": {
+      "receipt": {
+        "customer": {
+          "name": "John Doe",
+          "email": "john.doe@example.com"
+        },
+        "items": [
+          {
+            "id": "ci_1762438741524",
+            "productId": "p1",
+            "qty": 2,
+            "name": "Vibe T-Shirt",
+            "price": 1999,
+            "lineTotal": 3998
+          },
+          {
+            "id": "ci_1762438741525",
+            "productId": "p3",
+            "qty": 1,
+            "name": "Vibe Cap",
+            "price": 1499,
+            "lineTotal": 1499
+          }
+        ],
+        "total": 5497,
+        "timestamp": "2025-11-06T14:52:45.123Z"
+      }
+    }
+  },
+  "curlExamples": {
+    "getProducts": "curl http://localhost:4000/api/products",
+    "getCart": "curl http://localhost:4000/api/cart",
+    "addToCart": "curl -X POST http://localhost:4000/api/cart -H \"Content-Type: application/json\" -d '{\"productId\":\"p1\",\"qty\":2}'",
+    "updateCartItem": "curl -X PATCH http://localhost:4000/api/cart/ci_1762438741524 -H \"Content-Type: application/json\" -d '{\"qty\":3}'",
+    "removeCartItem": "curl -X DELETE http://localhost:4000/api/cart/ci_1762438741524",
+    "checkout": "curl -X POST http://localhost:4000/api/checkout -H \"Content-Type: application/json\" -d '{\"name\":\"John Doe\",\"email\":\"john.doe@example.com\"}'"
+  },
+  "powershellExamples": {
+    "getProducts": "Invoke-RestMethod -Uri http://localhost:4000/api/products -Method Get",
+    "getCart": "Invoke-RestMethod -Uri http://localhost:4000/api/cart -Method Get",
+    "addToCart": "$body = @{productId='p1';qty=2} | ConvertTo-Json; Invoke-RestMethod -Uri http://localhost:4000/api/cart -Method Post -Body $body -ContentType 'application/json'",
+    "updateCartItem": "$body = @{qty=3} | ConvertTo-Json; Invoke-RestMethod -Uri http://localhost:4000/api/cart/ci_1762438741524 -Method Patch -Body $body -ContentType 'application/json'",
+    "removeCartItem": "Invoke-RestMethod -Uri http://localhost:4000/api/cart/ci_1762438741524 -Method Delete",
+    "checkout": "$body = @{name='John Doe';email='john.doe@example.com'} | ConvertTo-Json; Invoke-RestMethod -Uri http://localhost:4000/api/checkout -Method Post -Body $body -ContentType 'application/json'"
+  }
+}
+
