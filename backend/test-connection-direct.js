@@ -1,20 +1,20 @@
 import mongoose from 'mongoose';
 
 // Direct connection test with password
-// Update this with your actual password for the 'zazi' user
+// Update this with your actual password for the 'sasivarthankg_db_user' user
 const password = process.env.DB_PASSWORD || 'YOUR_PASSWORD_HERE';
-const username = 'zazi';
+const username = 'sasivarthankg_db_user';
 
 // Try different connection string formats
 const connectionStrings = [
-  `mongodb+srv://${username}:${password}@zazi.rqtzc0x.mongodb.net/vibe_cart?retryWrites=true&w=majority`,
-  `mongodb+srv://${username}:${encodeURIComponent(password)}@zazi.rqtzc0x.mongodb.net/vibe_cart?retryWrites=true&w=majority`,
+  `mongodb+srv://${username}:${password}@psna.g7iqowl.mongodb.net/vibe_cart?retryWrites=true&w=majority`,
+  `mongodb+srv://${username}:${encodeURIComponent(password)}@psna.g7iqowl.mongodb.net/vibe_cart?retryWrites=true&w=majority`,
 ];
 
 console.log('🔌 Testing MongoDB connection...');
 console.log('👤 Username:', username);
 console.log('🔑 Password:', password === 'YOUR_PASSWORD_HERE' ? 'NOT SET' : '*'.repeat(password.length));
-console.log('📍 Cluster: zazi.rqtzc0x.mongodb.net\n');
+console.log('📍 Cluster: psna.g7iqowl.mongodb.net\n');
 
 if (password === 'YOUR_PASSWORD_HERE') {
   console.log('❌ Password not set!');

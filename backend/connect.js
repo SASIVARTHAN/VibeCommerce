@@ -15,11 +15,11 @@ if (!password) {
   process.exit(1);
 }
 
-const connectionString = `mongodb+srv://zazi:${password}@zazi.rqtzc0x.mongodb.net/vibe_cart?retryWrites=true&w=majority`;
+const connectionString = `mongodb+srv://sasivarthankg_db_user:${password}@psna.g7iqowl.mongodb.net/vibe_cart?retryWrites=true&w=majority`;
 
 console.log('🔌 Connecting to MongoDB...');
-console.log('📍 Cluster: zazi.rqtzc0x.mongodb.net');
-console.log('👤 Username: zazi');
+console.log('📍 Cluster: psna.g7iqowl.mongodb.net');
+console.log('👤 Username: sasivarthankg_db_user');
 console.log('📊 Database: vibe_cart\n');
 
 mongoose.connect(connectionString)

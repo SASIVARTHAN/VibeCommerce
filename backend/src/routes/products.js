@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/', async (_req, res, next) => {
   try {
-    const products = await Product.find({}, { _id: 0 }).lean();
+    const products = await Product.find({}).select('id name price image').lean();
     res.json(products);
   } catch (err) {
     next(err);

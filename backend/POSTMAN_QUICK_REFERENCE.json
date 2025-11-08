@@ -1,0 +1,134 @@
+{
+  "info": {
+    "name": "Vibe Commerce API",
+    "description": "Quick reference for Postman testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Products",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/products",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "products"]
+        }
+      }
+    },
+    {
+      "name": "Get Cart",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/cart",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "cart"]
+        }
+      }
+    },
+    {
+      "name": "Add to Cart",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productId\": \"p1\",\n  \"qty\": 2\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/cart",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "cart"]
+        }
+      }
+    },
+    {
+      "name": "Update Cart Item",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"qty\": 3\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/cart/:itemId",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "cart", ":itemId"],
+          "variable": [
+            {
+              "key": "itemId",
+              "value": "ci_1762438741524"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Cart Item",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/cart/:itemId",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "cart", ":itemId"],
+          "variable": [
+            {
+              "key": "itemId",
+              "value": "ci_1762438741524"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Checkout",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/checkout",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "checkout"]
+        }
+      }
+    }
+  ]
+}
+
+

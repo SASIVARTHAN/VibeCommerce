@@ -2,7 +2,7 @@ import 'dotenv/config';
 import mongoose from 'mongoose';
 
 // Get connection string from environment or use default
-const DEFAULT_URI = 'mongodb+srv://zazi:<db_password>@zazi.rqtzc0x.mongodb.net/vibe_cart?retryWrites=true&w=majority';
+const DEFAULT_URI = 'mongodb+srv://sasivarthankg_db_user:<db_password>@psna.g7iqowl.mongodb.net/vibe_cart?retryWrites=true&w=majority';
 let connectionString = process.env.MONGODB_URI || DEFAULT_URI;
 
 // Replace password placeholder if DB_PASSWORD is set
@@ -14,7 +14,7 @@ if (connectionString.includes('<db_password>')) {
     console.log('\n1. Set environment variable:');
     console.log('   $env:DB_PASSWORD="your_password_here"');
     console.log('\n2. Create a .env file in the backend folder with:');
-    console.log('   MONGODB_URI=mongodb+srv://zazi:YOUR_PASSWORD@zazi.rqtzc0x.mongodb.net/vibe_cart?retryWrites=true&w=majority');
+    console.log('   MONGODB_URI=mongodb+srv://sasivarthankg_db_user:YOUR_PASSWORD@psna.g7iqowl.mongodb.net/vibe_cart?retryWrites=true&w=majority');
     process.exit(1);
   }
   connectionString = connectionString.replace('<db_password>', password);

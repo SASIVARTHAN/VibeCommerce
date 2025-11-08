@@ -13,12 +13,12 @@ router.post('/', async (req, res, next) => {
   try {
     const parsed = checkoutSchema.parse(req.body);
     
-    const cartItems = await CartItem.find({}).lean();
+    const cartItems = await CartItem.find({}).select('id productId qty').lean();
     
     // Populate product details
     const items = await Promise.all(
       cartItems.map(async (item) => {
-        const product = await Product.findOne({ id: item.productId }).lean();
+        const product = await Product.findOne({ id: item.productId }).select('id name price').lean();
         if (!product) return null;
         const lineTotal = item.qty * product.price;
         return {

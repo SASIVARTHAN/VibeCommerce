@@ -11,12 +11,12 @@ const addSchema = z.object({
 
 router.get('/', async (_req, res, next) => {
   try {
-    const cartItems = await CartItem.find({}).lean();
+    const cartItems = await CartItem.find({}).select('id productId qty').lean();
     
     // Populate product details
     const items = await Promise.all(
       cartItems.map(async (item) => {
-        const product = await Product.findOne({ id: item.productId }).lean();
+        const product = await Product.findOne({ id: item.productId }).select('id name price image').lean();
         if (!product) {
           // If product not found, remove the cart item
           await CartItem.deleteOne({ id: item.id });
@@ -48,7 +48,7 @@ router.post('/', async (req, res, next) => {
     const parsed = addSchema.parse(req.body);
     
     // Check if product exists
-    const product = await Product.findOne({ id: parsed.productId });
+    const product = await Product.findOne({ id: parsed.productId }).select('id name price');
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
@@ -61,7 +61,8 @@ router.post('/', async (req, res, next) => {
     }
 
     const id = `ci_${Date.now()}`;
-    await CartItem.create({ id, productId: parsed.productId, qty: parsed.qty });
+    // Use insertOne to avoid _id validation issues
+    await CartItem.collection.insertOne({ id, productId: parsed.productId, qty: parsed.qty });
     return res.status(201).json({ id, productId: parsed.productId, qty: parsed.qty });
   } catch (err) {
     err.status = 400;

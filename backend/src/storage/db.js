@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 // MongoDB connection string - replace <db_password> with your actual password
-const DEFAULT_URI = 'mongodb+srv://zazi:<db_password>@zazi.rqtzc0x.mongodb.net/vibe_cart?retryWrites=true&w=majority';
+const DEFAULT_URI = 'mongodb+srv://sasivarthankg_db_user:<db_password>@psna.g7iqowl.mongodb.net/vibe_cart?retryWrites=true&w=majority';
 const MONGODB_URI = process.env.MONGODB_URI || DEFAULT_URI;
 
 let isConnected = false;
@@ -13,7 +13,13 @@ export async function connectDb() {
 
   try {
     // Replace <db_password> placeholder if it exists
-    const connectionString = MONGODB_URI.replace('<db_password>', process.env.DB_PASSWORD || '');
+    let connectionString = MONGODB_URI.replace('<db_password>', process.env.DB_PASSWORD || '');
+    
+    // URL encode the password if it contains special characters
+    if (process.env.DB_PASSWORD) {
+      const password = process.env.DB_PASSWORD;
+      connectionString = connectionString.replace(`:${password}@`, `:${encodeURIComponent(password)}@`);
+    }
     
     await mongoose.connect(connectionString);
     isConnected = true;
@@ -26,22 +32,22 @@ export async function connectDb() {
   }
 }
 
-// Product Schema
+// Product Schema - use _id as the primary key, id as a regular field
 const productSchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true },
+  id: { type: String, required: true, unique: true, index: true },
   name: { type: String, required: true },
   price: { type: Number, required: true }, // stored in cents
   image: { type: String }
-}, { _id: false }); // Use custom id as _id
+});
 
 export const Product = mongoose.model('Product', productSchema);
 
-// Cart Item Schema
+// Cart Item Schema - use _id as the primary key, id as a regular field
 const cartItemSchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true },
+  id: { type: String, required: true, unique: true, index: true },
   productId: { type: String, required: true, ref: 'Product' },
   qty: { type: Number, required: true, min: 1 }
-}, { _id: false }); // Use custom id as _id
+});
 
 export const CartItem = mongoose.model('CartItem', cartItemSchema);
 
